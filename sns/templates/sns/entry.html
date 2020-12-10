@@ -1,0 +1,24 @@
+{% extends 'sns/layout.html' %}
+
+{% block title %}Entry{% endblock %}
+
+{% block header %}
+<h1 class="display-4 text-primary">Entry</h1>
+{% if messages %}
+<ul class="list-group">
+    {% for message in messages %}
+    <li{% if message.tags %} class="list-group-item {{message.tags}}"
+        {% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'sns:entry' %}" method="post">
+    {% csrf_token %}
+    {{ entryform.as_p }}
+    <input type="submit" value="Entry">    
+</form>
+<p>or <a href= "{% url 'sns:login' %}">Login</a></p>
+{% endblock %}
